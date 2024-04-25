@@ -6,63 +6,84 @@
     <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
 </head>
 <body>
-    <div id="cy"></div>
+    <div id="cy" style="width: 800px; height: 600px;"></div> <!-- Définissez des dimensions explicites pour le conteneur -->
     <script>
-        // Chargement des données JSON
-        fetch('dependencies.json')
-            .then(response => response.json())
-            .then(dependencies => {
-                // Préparation des éléments pour Cytoscape
-                const elements = [];
-                Object.keys(dependencies).forEach(key => {
-                    // Ajout des noeuds
-                    elements.push({ data: { id: key } });
-                    dependencies[key].forEach(dep => {
-                        // Ajout des arêtes
-                        elements.push({ data: { source: key, target: dep } });
-                    });
-                });
-
-                // Initialisation de Cytoscape avec les éléments
-                const cy = cytoscape({
-                    container: document.getElementById('cy'),
-                    elements: elements,
-                    style: [
-                        {
-                            selector: 'node',
-                            style: {
-                                'background-color': '#0074D9',
-                                'label': 'data(id)',
-                                'color': '#fff',
-                                'text-outline-width': 2,
-                                'text-outline-color': '#0074D9',
-                                'text-valign': 'center',
-                                'text-halign': 'center',
-                                'font-size': '12px'
-                            }
-                        },
-                        {
-                            selector: 'edge',
-                            style: {
-                                'width': 3,
-                                'line-color': '#7FDBFF',
-                                'target-arrow-color': '#7FDBFF',
-                                'target-arrow-shape': 'triangle',
-                                'curve-style': 'bezier'
-                            }
-                        }
-                    ],
-                    layout: {
-                        name: 'breadthfirst',
-                        directed: true,
-                        padding: 10
+        // Fonction principale pour charger et afficher les dépendances
+        function loadDependencies() {
+            fetch('dependencies.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok.'); // Gestion des erreurs réseau
                     }
+                    return response.json();
+                })
+                .then(dependencies => {
+                    // Fonction pour construire les éléments du graphique
+                    initializeGraph(dependencies);
+                })
+                .catch(error => {
+                    console.error('Failed to load or parse the JSON:', error);
+                    alert('Failed to load or parse the JSON. Check the console for more details.');
                 });
-            })
-            .catch(error => {
-                console.error('Error loading or parsing the JSON file:', error);
-                alert('Error loading or parsing the JSON file. Check the console for more details.');
+        }
+
+        // Fonction pour initialiser le graphique avec Cytoscape
+        function initializeGraph(dependencies) {
+            const elements = buildElements(dependencies);
+            const cy = cytoscape({
+                container: document.getElementById('cy'),
+                elements: elements,
+                style: getCytoscapeStyles(),
+                layout: {
+                    name: 'breadthfirst',
+                    directed: true,
+                    padding: 10
+                }
             });
+        }
+
+        // Construire les éléments à partir des données de dépendance
+        function buildElements(dependencies) {
+            const elements = [];
+            Object.keys(dependencies).forEach(key => {
+                elements.push({ data: { id: key } }); // Ajout des noeuds
+                dependencies[key].forEach(dep => {
+                    elements.push({ data: { source: key, target: dep } }); // Ajout des arêtes
+                });
+            });
+            return elements;
+        }
+
+        // Styles pour les noeuds et les arêtes
+        function getCytoscapeStyles() {
+            return [
+                {
+                    selector: 'node',
+                    style: {
+                        'background-color': '#0074D9',
+                        'label': 'data(id)',
+                        'color': '#fff',
+                        'text-outline-width': 2,
+                        'text-outline-color': '#0074D9',
+                        'text-valign': 'center',
+                        'text-halign': 'center',
+                        'font-size': '12px'
+                    }
+                },
+                {
+                    selector: 'edge',
+                    style: {
+                        'width': 3,
+                        'line-color': '#7FDBFF',
+                        'target-arrow-color': '#7FDBFF',
+                        'target-arrow-shape': 'triangle',
+                        'curve-style': 'bezier'
+                    }
+                }
+            ];
+        }
+
+        loadDependencies(); // Appel de la fonction de chargement des dépendances
     </script>
 </body>
 </html>
