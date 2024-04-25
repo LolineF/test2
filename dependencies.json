@@ -1,6 +1,169 @@
 {
-    "ModuleA": ["ModuleB", "ModuleC"],
-    "ModuleB": ["ModuleD"],
-    "ModuleC": [],
-    "ModuleD": ["ModuleC"]
+    "sale_management": [],
+    "product_expiry": [],
+    "queue_job_cron_jobrunner": [],
+    "mrp": [],
+    "mail": [],
+    "stock": [],
+    "sale_stock": [],
+    "account": [],
+    "web": [],
+    "product": [],
+    "purchase_stock": [],
+    "base_automation": [],
+    "crm": [],
+    "calendar": [],
+    "sale": [],
+    "contacts": [],
+    "purchase": [],
+    "alert_code_ce": [
+        "product",
+        "Code-CE",
+        "manuf_supplier_ref"
+    ],
+    "api_business_costing": [
+        "mrp"
+    ],
+    "api_order_supplier": [
+        "mrp",
+        "api_params_supplier"
+    ],
+    "api_params_supplier": [
+        "web"
+    ],
+    "api_search_supplier": [
+        "mrp",
+        "mail",
+        "api_params_supplier",
+        "queue_job_cron_jobrunner",
+        "supply_bom_mo",
+        "manuf_supplier_ref",
+        "api_business_costing",
+        "stock_location_assistance",
+        "properties_product",
+        "Code-CE"
+    ],
+    "calendar_ce": [
+        "calendar",
+        "web"
+    ],
+    "cartelec_fields": [
+        "product",
+        "stock",
+        "sale_management",
+        "sale_stock",
+        "mrp",
+        "purchase_stock"
+    ],
+    "Code-CE": [
+        "sale",
+        "product",
+        "mrp",
+        "account"
+    ],
+    "customer_code_use_cases_ce": [
+        "sale"
+    ],
+    "fcp_report": [
+        "mrp",
+        "properties_product",
+        "msl_mgmt"
+    ],
+    "final_costing": [
+        "cartelec_fields",
+        "Code-CE",
+        "api_search_supplier"
+    ],
+    "import_business_costing": [
+        "api_business_costing",
+        "sale_management",
+        "supply_bom_mo",
+        "cartelec_fields",
+        "manuf_supplier_ref"
+    ],
+    "kit_availability": [
+        "mrp",
+        "mail",
+        "crm"
+    ],
+    "kpi_otd": [
+        "contacts",
+        "sale",
+        "stock",
+        "sale_stock"
+    ],
+    "link_invoice_delivery": [
+        "account",
+        "stock",
+        "sale",
+        "base_automation"
+    ],
+    "lot_number_label": [
+        "uniq_code_receipt"
+    ],
+    "manuf_supplier_ref": [
+        "product",
+        "purchase",
+        "sale",
+        "purchase_stock"
+    ],
+    "merge_sale_order": [
+        "sale"
+    ],
+    "mgmt_pdt_equivalences": [
+        "product",
+        "mrp",
+        "manuf_supplier_ref",
+        "cartelec_fields"
+    ],
+    "msl_mgmt": [
+        "product",
+        "product_expiry",
+        "web",
+        "cartelec_fields"
+    ],
+    "payment_notice": [
+        "account",
+        "mail"
+    ],
+    "properties_product": [
+        "product",
+        "sale_management",
+        "cartelec_fields"
+    ],
+    "report_description_in_delivery": [
+        "sale",
+        "stock",
+        "sale_stock"
+    ],
+    "stock_location_assistance": [
+        "stock",
+        "uniq_code_receipt",
+        "cartelec_fields"
+    ],
+    "supply_bom_mo": [
+        "mrp",
+        "stock",
+        "api_business_costing",
+        "uniq_code_receipt"
+    ],
+    "template_delivery": [
+        "sale",
+        "stock",
+        "product_expiry",
+        "cartelec_fields"
+    ],
+    "template_purchase": [
+        "purchase"
+    ],
+    "uniq_code_receipt": [
+        "stock",
+        "contacts",
+        "manuf_supplier_ref"
+    ],
+    "ventes_ce": [
+        "sale",
+        "stock",
+        "account"
+    ]
 }
