@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dependency Graph</title>
+    <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+</head>
+<body>
+    <div id="cy"></div>
+    <script>
+        // Chargement des données JSON
+        fetch('dependencies.json')
+            .then(response => response.json())
+            .then(dependencies => {
+                // Préparation des éléments pour Cytoscape
+                const elements = [];
+                Object.keys(dependencies).forEach(key => {
+                    // Ajout des noeuds
+                    elements.push({ data: { id: key } });
+                    dependencies[key].forEach(dep => {
+                        // Ajout des arêtes
+                        elements.push({ data: { source: key, target: dep } });
+                    });
+                });
+
+                // Initialisation de Cytoscape avec les éléments
+                const cy = cytoscape({
+                    container: document.getElementById('cy'),
+                    elements: elements,
+                    style: [
+                        {
+                            selector: 'node',
+                            style: {
+                                'background-color': '#0074D9',
+                                'label': 'data(id)',
+                                'color': '#fff',
+                                'text-outline-width': 2,
+                                'text-outline-color': '#0074D9',
+                                'text-valign': 'center',
+                                'text-halign': 'center',
+                                'font-size': '12px'
+                            }
+                        },
+                        {
+                            selector: 'edge',
+                            style: {
+                                'width': 3,
+                                'line-color': '#7FDBFF',
+                                'target-arrow-color': '#7FDBFF',
+                                'target-arrow-shape': 'triangle',
+                                'curve-style': 'bezier'
+                            }
+                        }
+                    ],
+                    layout: {
+                        name: 'breadthfirst',
+                        directed: true,
+                        padding: 10
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error loading or parsing the JSON file:', error);
+                alert('Error loading or parsing the JSON file. Check the console for more details.');
+            });
+    </script>
+</body>
+</html>
